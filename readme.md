@@ -1,5 +1,5 @@
 # What The Flow
-This project was created to learn about reactive programming and compare Project Reactor and Kotlin Flow in a Spring WebFlux Application
+This project was created to learn about reactive programming and compare Project Reactor and Kotlin Flow in a Spring WebFlux Application - Learn more here: https://medium.com/@shelbyc0hen/what-the-flow-c707da1c3903
 
 SeatGeek is a website where you can find tickets to concerts, sports games, and other events
 The APIs defined in this project call the [SeatGeek APIs](http://platform.seatgeek.com/) to get lists of venues that events are held at.
