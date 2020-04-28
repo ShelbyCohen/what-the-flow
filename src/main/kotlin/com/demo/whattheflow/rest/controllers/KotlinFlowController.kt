@@ -26,7 +26,7 @@ class KotlinFlowController(@Autowired private val kotlinFlowService: KotlinFlowS
     }
 
     @GetMapping("/kotlinFlowConcertVenues", produces = [MediaType.APPLICATION_JSON_VALUE])
-    suspend fun getAllConcertVenueNames(): Flow<List<KotlinFlowResponse>> {
+    fun getAllConcertVenueNames(): Flow<List<KotlinFlowResponse>> {
         logger.info("Getting all concert venue names with Kotlin Flow ")
 
         return kotlinFlowService.getAllConcertVenueNames()

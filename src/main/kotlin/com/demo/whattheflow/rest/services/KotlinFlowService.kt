@@ -14,7 +14,7 @@ class KotlinFlowService(@Autowired private val seatGeekService: SeatGeekService)
                     .map { eventList -> eventList.map { KotlinFlowResponse(name = it.venue.name) } }
                     .asFlow()
 
-    suspend fun getAllConcertVenueNames(): Flow<List<KotlinFlowResponse>> =
+    fun getAllConcertVenueNames(): Flow<List<KotlinFlowResponse>> =
             seatGeekService.getConcertsFlow()
                     .map { eventList -> eventList.map { KotlinFlowResponse(name = it.venue.name) } }
 
