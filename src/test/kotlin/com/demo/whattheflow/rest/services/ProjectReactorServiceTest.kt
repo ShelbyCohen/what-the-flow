@@ -8,6 +8,7 @@ import com.nhaarman.mockitokotlin2.whenever
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
+import reactor.test.StepVerifier
 
 class ProjectReactorServiceTest {
     private val seatGeekService: SeatGeekService = mock()
@@ -23,8 +24,8 @@ class ProjectReactorServiceTest {
         )
         whenever(seatGeekService.getAllEvents()).thenReturn(Flux.just(expected))
 
-        projectReactorService.getAllVenueNames()
-                .map { Assertions.assertEquals(expected[0].venue.name, it[0].name) }
+        StepVerifier.create(projectReactorService.getAllVenueNames())
+                .consumeNextWith { Assertions.assertEquals(expected[0].venue.name, it[0].name) }
     }
 
     @Test
@@ -37,7 +38,7 @@ class ProjectReactorServiceTest {
         )
         whenever(seatGeekService.getConcerts()).thenReturn(Flux.just(expected))
 
-        projectReactorService.getAllConcertVenueNames()
-                .map { Assertions.assertEquals(expected[0].venue.name, it[0].name) }
+        StepVerifier.create(projectReactorService.getAllConcertVenueNames())
+                .consumeNextWith { Assertions.assertEquals(expected[0].venue.name, it[0].name) }
     }
 }
