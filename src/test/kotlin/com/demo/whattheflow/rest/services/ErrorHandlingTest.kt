@@ -21,15 +21,15 @@ class ErrorHandlingTest {
                 .concatWith(Flux.error(RuntimeException("Exception Occurred")))
                 .concatWith(Flux.just("D"))
                 .onErrorResume { e: Throwable? ->  // on error this block gets executed - we are returning a flux on error value
-                    println(e)
-                    Flux.just("default")
+                    println(e) // if you care about the Throwable use onErrorResume
+                    Flux.just("default") // you can return anything here, can switch back to success stream
                 }
 
         StepVerifier.create(stringFlux.log())
                 .expectSubscription()
                 .expectNext("a", "b", "c")
                 .expectNext("default")
-                .expectError(RuntimeException::class.java)
+                .expectComplete()
                 .verify()
     }
 
@@ -42,6 +42,8 @@ class ErrorHandlingTest {
                 .concatWith(Flux.error(RuntimeException("Exception Occurred")))
                 .concatWith(Flux.just("D"))
                 .onErrorReturn("default") // here returning a simple string on any errors
+                // we lose the type of the error here
+
         StepVerifier.create(stringFlux.log())
                 .expectSubscription()
                 .expectNext("a", "b", "c")
@@ -58,6 +60,7 @@ class ErrorHandlingTest {
                 .concatWith(Flux.error(RuntimeException("Exception Occurred")))
                 .concatWith(Flux.just("D"))
                 .onErrorMap { e: Throwable? -> CustomException(e) } // here returning a simple string on any errors
+                // allows us to take the Throwable and map it to something else
 
         StepVerifier.create(stringFlux.log())
                 .expectSubscription()
